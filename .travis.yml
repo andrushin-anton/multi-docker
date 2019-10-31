@@ -10,14 +10,14 @@ script:
   - docker run -e CI=true antonandrushin/react-test npm test
 
 after_success:
-  - docker build -t antonandrushin/multi-client ./client
   - docker build -t antonandrushin/multi-nginx ./nginx
   - docker build -t antonandrushin/multi-server ./server
   - docker build -t antonandrushin/multi-worker ./worker
+  - docker build -t antonandrushin/multi-client ./client
   # Login into docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push antonandrushin/multi-client
   - docker push antonandrushin/multi-nginx
   - docker push antonandrushin/multi-server
   - docker push antonandrushin/multi-worker
+  - docker push antonandrushin/multi-client
